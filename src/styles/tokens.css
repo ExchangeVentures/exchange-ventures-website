@@ -1,0 +1,66 @@
+:root {
+  /* ---- Black and white only. No hue anywhere. -------------------------- */
+  --black:   #000000;
+  --ink:     #0A0A0A;   /* dark section ground */
+  --ink-2:   #141414;   /* raised panel on dark */
+  --ink-3:   #1E1E1E;   /* input / card on dark */
+
+  --white:   #FFFFFF;
+  --off:     #F4F4F4;   /* light section ground */
+  --off-2:   #E9E9E9;
+
+  --grey-90: #1A1A1A;
+  --grey-60: #6E6E6E;
+  --grey-40: #9C9C9C;
+  --grey-20: #D6D6D6;
+
+  /* text */
+  --t-on-light:      #0A0A0A;
+  --t-on-light-mute: #6E6E6E;
+  --t-on-dark:       #FFFFFF;
+  --t-on-dark-mute:  #9C9C9C;
+
+  /* rules */
+  --line-light:      rgba(0, 0, 0, 0.14);
+  --line-light-soft: rgba(0, 0, 0, 0.07);
+  --line-dark:       rgba(255, 255, 255, 0.16);
+  --line-dark-soft:  rgba(255, 255, 255, 0.08);
+
+  /* Emphasis is inversion, not colour. --accent stays monochrome on purpose. */
+  --accent: currentColor;
+
+  /* legacy aliases */
+  --paper: var(--white);
+  --paper-2: var(--off);
+  --muted: var(--t-on-light-mute);
+  --hairline: var(--line-light);
+  --hairline-soft: var(--line-light-soft);
+  --d-bg: var(--ink);
+  --d-bg-2: var(--ink-2);
+  --d-text: var(--t-on-dark);
+  --d-muted: var(--t-on-dark-mute);
+  --d-hairline: var(--line-dark);
+
+  /* ---- Type: one sans ---- */
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --display: var(--sans);
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --t-hero:  clamp(1.85rem, 3.3vw, 3rem);
+  --t-h2:    clamp(1.45rem, 2.3vw, 2.05rem);
+  --t-h3:    clamp(1.05rem, 1.3vw, 1.25rem);
+  --t-lead:  clamp(1rem, 1.15vw, 1.12rem);
+  --t-body:  1rem;
+  --t-label: 0.7rem;
+
+  /* ---- Space & shape ---- */
+  --gutter: clamp(1.25rem, 4.5vw, 4.5rem);
+  --section: clamp(4.5rem, 8.5vw, 8rem);
+  --maxw: 1320px;
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 6px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

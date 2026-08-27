@@ -1,0 +1,12 @@
+node_modules
+dist
+.env
+.env.local
+.DS_Store
+
+# Not for the public site repo.
+# The deck is a fundraising document and docs/ holds tenant + DNS notes.
+# Keep these locally, or version them in a separate PRIVATE repo.
+deck/
+docs/
+.claude/
