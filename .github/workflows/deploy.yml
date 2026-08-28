@@ -1,22 +1,20 @@
-name: Deploy to GitHub Pages
+name: Deploy to VPS
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Never let two deploys race each other.
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: true
 
+env:
+  DEPLOY_HOST: ${{ secrets.SSH_HOST }}
+  DEPLOY_USER: ${{ secrets.SSH_USER }}
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,20 +25,30 @@ jobs:
           cache: npm
 
       - run: npm ci
+
       - run: npm run build
+        env:
+          VITE_AI_ENDPOINT: /api/strategy
 
-      # public/CNAME is copied into dist/ by Vite, which is what keeps the
-      # custom domain bound across deploys.
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy static site
+        run: |
+          rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:/var/www/exchangeventures/dist/"
+
+      - name: Deploy API service
+        run: |
+          rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" \
+            api/ server.js package.json package-lock.json \
+            "$DEPLOY_USER@$DEPLOY_HOST:/opt/exchangeventures-api/"
+
+      - name: Install API deps and restart service
+        run: |
+          ssh -i ~/.ssh/deploy_key "$DEPLOY_USER@$DEPLOY_HOST" \
+            "cd /opt/exchangeventures-api && npm ci --omit=dev && sudo systemctl restart exchangeventures-api"
