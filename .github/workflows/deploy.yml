@@ -45,7 +45,7 @@ jobs:
       - name: Deploy API service
         run: |
           rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" \
-            api/ server.js package.json package-lock.json \
+            api server.js package.json package-lock.json \
             "$DEPLOY_USER@$DEPLOY_HOST:/opt/exchangeventures-api/"
 
       - name: Install API deps and restart service
