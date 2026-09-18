@@ -32,10 +32,10 @@ export default function Platform() {
     <main>
       <section className="hero" style={{ gridTemplateColumns: "minmax(0,1fr)", paddingBottom: "clamp(30px,4vw,54px)" }}>
         <div className="herotxt">
-          <span className="eyebrow">Coming soon</span>
+          <span className="eyebrow">Phase one · Coming soon</span>
           <h1 style={{ maxWidth: "13ch" }}>Datum</h1>
           <p className="lede">
-            Production data management for upstream oil and gas, built on the{" "}
+            The first phase of our intelligence suite. Production data management built on the{" "}
             <b>regulator's own register</b> instead of on free text.
           </p>
           <div className="cta"><Btn href={MAIL}>Get in touch</Btn></div>

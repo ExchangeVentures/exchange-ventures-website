@@ -3,13 +3,30 @@ import HeroCanvas from "../components/HeroCanvas.jsx";
 
 const MAIL = "mailto:info@exchangeventures.ca?subject=Exchange%20Ventures";
 
+/* Each of these is a published finding, not an assertion. */
 const PROBLEMS = [
-  ["01", "Entry is free text",
-   "One battery ends up with seven names. Nothing downstream can join them, and nobody finds out until month end."],
-  ["02", "Reconciliation is manual",
-   "Volumes balanced by hand against a regulator deadline that does not move, in a spreadsheet nobody else can read."],
-  ["03", "Analysis comes last",
-   "Benchmarking, decline and netback all wait on keys that never matched in the first place."],
+  ["01", "The systems predate the question",
+   "Roughly four in five producers run critical systems more than fifteen years old, built before anyone asked them to integrate with anything. They have no interfaces to give.",
+   "Industry legacy systems research"],
+  ["02", "Nothing shares a key",
+   "Volumes live across historians, SCADA, engineering tools, spreadsheets, ERP and field notebooks at once. Each names the same well a slightly different way, so none of it joins.",
+   "Upstream data integration research"],
+  ["03", "The field is still on paper",
+   "Gauges get written on a sheet at the lease, sent in days later, and keyed by someone else later still. A well that stopped last week can be dead nine days before anyone sees it.",
+   "Field data capture practice"],
+  ["04", "So the analysis never lands",
+   "Models trained on partial inputs produce guidance operators learn to ignore. Fragmented data, not weak analytics, is the thing standing in the way.",
+   "Digital transformation research"],
+];
+
+const SUITE = [
+  ["Phase one", "Datum", "live",
+   "Capture and the regulatory filing. Every facility, well and disposition point resolves against the register, so the identifiers are right before anything gets built on them.",
+   "#/platform"],
+  ["Phase two", "Compliance", "next",
+   "Vent, flare, fuel and leak survey records captured on the round the operator already walks, against emissions rules that tighten from 2027.", null],
+  ["Phase three", "Intelligence", "later",
+   "Benchmarking, decline and netback that can be trusted, because by then the keys underneath them finally match. This is the part everyone wants first, and it has to come last.", null],
 ];
 
 export default function Home() {
@@ -34,10 +51,12 @@ export default function Home() {
       <section className="sec">
         <Reveal><div className="sechead"><h2>The industry runs on data it cannot trust.</h2></div></Reveal>
         <div className="probs">
-          {PROBLEMS.map(([n, title, body], i) => (
+          {PROBLEMS.map(([n, title, body, source], i) => (
             <Reveal key={n} delay={i * 110} className="prob">
               <Shell style={{ height: "100%" }}>
-                <div className="probin"><i>{n}</i><b>{title}</b><p>{body}</p></div>
+                <div className="probin">
+                  <i>{n}</i><b>{title}</b><p>{body}</p><cite>{source}</cite>
+                </div>
               </Shell>
             </Reveal>
           ))}
@@ -47,24 +66,48 @@ export default function Home() {
       <section className="sec">
         <Reveal>
           <div className="sechead">
-            <h2>So we are building the platform.</h2>
+            <h2>So we are building the intelligence suite.</h2>
             <p className="sub">
-              Datum captures field data against the live regulatory register, then carries it
-              all the way through to the filing.
+              Three phases, in the only order that works. Nothing above the first one holds up
+              until the identifiers underneath it are right.
             </p>
           </div>
         </Reveal>
+
+        <div className="suite">
+          {SUITE.map(([phase, name, state, body, href], i) => (
+            <Reveal key={name} delay={i * 90}>
+              <article className="suitecard">
+                <div className="ph">
+                  <b>{phase}</b>
+                  <span className={`state${state === "live" ? " live" : ""}`}>
+                    {state === "live" ? "Building now" : state === "next" ? "Next" : "Later"}
+                  </span>
+                </div>
+                <div className="body">
+                  <h3>{name}</h3>
+                  <p>{body}</p>
+                  {href && (
+                    <div className="cta" style={{ marginTop: 4 }}>
+                      <Btn href={href} size="sm" icon="→">See Datum</Btn>
+                    </div>
+                  )}
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
         <Reveal delay={90} style={{ marginTop: 44 }}>
           <Shell>
             <div className="band">
               <div className="bandtxt">
-                <h3>Built on the register, not on a text box.</h3>
+                <h3>Phase one, running now.</h3>
                 <p>
                   Every facility, well and disposition point is matched against Petrinex before
                   it can be saved, so the keys are right the first time.
                 </p>
                 <div className="cta">
-                  <Btn href="#/platform" size="sm" icon="→">Open the platform</Btn>
+                  <Btn href="#/platform" size="sm" icon="→">Open Datum</Btn>
                 </div>
               </div>
               <div className="bandimg">
