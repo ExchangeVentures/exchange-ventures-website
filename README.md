@@ -70,7 +70,7 @@ with `python3 scripts/gen_assets.py` after changing the mark or the headline.
 | `icon-512.png` | 512px, referenced by `site.webmanifest` |
 | `og.png` | 1200x630 link preview, black with the hero line |
 | `404.html` | Standalone page GitHub Pages serves for unknown paths |
-| `robots.txt`, `sitemap.xml` | Both point at `https://xchngventure.com` |
+| `robots.txt`, `sitemap.xml` | Both point at `https://exchangeventures.ca` |
 
 The mark is the nav's square, doubled: one solid, one outlined. Same idea as the
 Capital diagram, one shape becoming another. `index.html` carries the Open Graph

@@ -1,7 +1,7 @@
 import { Shell, Btn, Reveal } from "../components/Primitives.jsx";
 import Resolver from "../components/Resolver.jsx";
 
-const MAIL = "mailto:hello@exchangeventures.ca?subject=Datum%20access";
+const MAIL = "mailto:info@exchangeventures.ca?subject=Datum%20access";
 
 /* Capability set mirrors what the incumbent production data systems cover,
    so a production accountant recognises the category immediately. */
@@ -15,7 +15,7 @@ const CAPABILITIES = [
   ["04", "Surveillance",
    "Production plots, decline curves, downtime and deferment, measured against each well's own prior period rather than a fleet average."],
   ["05", "Regulatory reporting",
-   "Petrinex volumetric filing for Alberta and Saskatchewan, balanced and generated days ahead of the deadline instead of two days before it."],
+   "Volumetric filing generated and balanced against the regulator's rules days ahead of the deadline, instead of two days before it."],
   ["06", "Emissions",
    "Vent, flare and fuel volumes captured at source, on the round the operator already walks."],
 ];
@@ -23,8 +23,8 @@ const CAPABILITIES = [
 const RESEARCH = [
   ["2 to 4 hrs", "Spent by hand on a single well that does not tie out, every month it does not tie out.", "Industry reconciliation benchmarks"],
   ["60 to 160 hrs", "What a two hundred well operation loses to reconciliation in one month, at a normal fifteen to twenty percent discrepancy rate.", "Industry reconciliation benchmarks"],
-  ["5,709 wells", "Forecast to be drilled across Western Canada in 2026. Each one begins reporting the day it produces.", "WCSB drilling forecast, 2026"],
-  ["72%", "Share of the oil and gas accounting software market that is upstream, on its way from 4.3 to 8.9 billion by 2033.", "Accounting software market forecast"],
+  ["$8.9B", "Where the oil and gas accounting software market is headed by 2033, up from 4.3 billion today.", "Accounting software market forecast"],
+  ["72%", "Share of that market that is upstream, where the volumes are captured in the first place.", "Accounting software market forecast"],
 ];
 
 export default function Platform() {
@@ -35,7 +35,7 @@ export default function Platform() {
           <span className="eyebrow">Coming soon</span>
           <h1 style={{ maxWidth: "13ch" }}>Datum</h1>
           <p className="lede">
-            Production data management for Western Canadian upstream, built on the{" "}
+            Production data management for upstream oil and gas, built on the{" "}
             <b>regulator's own register</b> instead of on free text.
           </p>
           <div className="cta"><Btn href={MAIL}>Get in touch</Btn></div>

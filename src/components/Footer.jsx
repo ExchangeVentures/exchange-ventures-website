@@ -4,7 +4,7 @@ export default function Footer({ route }) {
       <span className="f">Exchange Ventures</span>
       <span className="sp" />
       <span className="f">
-        {route === "platform" ? "Register data from Petrinex public data" : "Calgary, Alberta"}
+        {route === "platform" ? "Register data from Petrinex public data" : "Oil and gas intelligence"}
       </span>
     </footer>
   );

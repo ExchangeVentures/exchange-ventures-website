@@ -1,7 +1,7 @@
 import { Shell, Btn, Reveal } from "../components/Primitives.jsx";
 import HeroCanvas from "../components/HeroCanvas.jsx";
 
-const MAIL = "mailto:hello@exchangeventures.ca?subject=Exchange%20Ventures";
+const MAIL = "mailto:info@exchangeventures.ca?subject=Exchange%20Ventures";
 
 const PROBLEMS = [
   ["01", "Entry is free text",
@@ -17,7 +17,6 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="herotxt">
-          <span className="eyebrow">Calgary, Alberta</span>
           <h1>Exchange Ventures</h1>
           <p className="tagline">An oil and gas intelligence company.</p>
           <p className="lede">
