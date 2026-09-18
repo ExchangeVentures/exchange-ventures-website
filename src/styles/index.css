@@ -110,11 +110,14 @@ h1{margin:0;font-family:var(--disp);font-size:clamp(46px,8.4vw,108px);font-weigh
   letter-spacing:-.052em;max-width:11ch;text-wrap:balance}
 /* A heading that is set to the measured width of its own words rather than to
    a fixed size, so it runs flush edge to edge and rescales with the column.
-   --fit is the width of the text in em at this weight and tracking. Measured
-   with canvas measureText: "Exchange Ventures" is 7.15em at display sizes but
-   7.28em around 46px, because the negative tracking rounds against a smaller
-   pixel grid. --fit takes the widest of those so the line never overruns the
-   column at any width, and fills it to within two percent at the top end. */
+   --fit is the width of the text in em at this weight and tracking, measured
+   in Geist with a hidden span rather than canvas, because canvas does not
+   apply the same rounding the layout engine gives negative tracking.
+   "Exchange Ventures" is 7.932em and holds that from 38px to 200px, so --fit
+   is 7.95 and the line fills the column to 99.8% without ever overrunning it.
+   Remeasure this if the string, the weight or the tracking changes. If Geist
+   fails to load the stack falls back to SF Pro or Segoe UI, both narrower, so
+   the heading underfills rather than overflowing. */
 h1.fit{max-width:none;text-wrap:nowrap;white-space:nowrap;width:100%;
   font-size:calc(100cqw / var(--fit));letter-spacing:-.052em}
 .tagline{margin:0;font-size:clamp(19px,2.1vw,27px);font-weight:450;letter-spacing:-.026em;

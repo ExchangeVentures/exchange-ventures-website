@@ -35,7 +35,7 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="herotxt">
-          <h1 className="fit" style={{ "--fit": 7.35 }}>Exchange Ventures</h1>
+          <h1 className="fit" style={{ "--fit": 7.95 }}>Exchange Ventures</h1>
           <p className="tagline">An intelligence company for energy operations, and the data they have never been able to trust.</p>
           <div className="cta">
             <Btn href={MAIL}>Get in touch</Btn>
