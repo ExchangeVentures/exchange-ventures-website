@@ -4,7 +4,7 @@
   --hair:rgba(0,0,0,.09); --hair-2:rgba(0,0,0,.14); --hair-3:rgba(0,0,0,.26);
   --ink:#080808; --ink-2:#585858; --ink-3:#8B8B8B; --ink-4:#B6B6B6;
   --inv-bg:#080808; --inv-ink:#FAFAFA;
-  --glow:rgba(0,0,0,.05);
+  --glow:rgba(0,0,0,.05); --mesh:#6F6F6F;
   --lift:0 1px 2px rgba(0,0,0,.04), 0 12px 32px -14px rgba(0,0,0,.14);
   --inset:inset 0 1px 0 rgba(255,255,255,.7);
   --disp:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
@@ -19,7 +19,7 @@
   --hair:rgba(255,255,255,.10); --hair-2:rgba(255,255,255,.16); --hair-3:rgba(255,255,255,.34);
   --ink:#F7F7F7; --ink-2:#A8A8A8; --ink-3:#757575; --ink-4:#515151;
   --inv-bg:#F7F7F7; --inv-ink:#070707;
-  --glow:rgba(255,255,255,.055);
+  --glow:rgba(255,255,255,.055); --mesh:#7E7E7E;
   --lift:0 1px 2px rgba(0,0,0,.5), 0 18px 44px -18px rgba(0,0,0,.8);
   --inset:inset 0 1px 0 rgba(255,255,255,.08);
   color-scheme:dark;
@@ -29,7 +29,7 @@
   --hair:rgba(255,255,255,.10); --hair-2:rgba(255,255,255,.16); --hair-3:rgba(255,255,255,.34);
   --ink:#F7F7F7; --ink-2:#A8A8A8; --ink-3:#757575; --ink-4:#515151;
   --inv-bg:#F7F7F7; --inv-ink:#070707;
-  --glow:rgba(255,255,255,.055);
+  --glow:rgba(255,255,255,.055); --mesh:#7E7E7E;
   --lift:0 1px 2px rgba(0,0,0,.5), 0 18px 44px -18px rgba(0,0,0,.8);
   --inset:inset 0 1px 0 rgba(255,255,255,.08);
   color-scheme:dark;
@@ -108,8 +108,8 @@ button{cursor:pointer}
   box-shadow:0 0 0 1px var(--hair);background:var(--shell);align-self:flex-start}
 h1{margin:0;font-family:var(--disp);font-size:clamp(46px,8.4vw,108px);font-weight:400;line-height:.94;
   letter-spacing:-.052em;max-width:11ch;text-wrap:balance}
-.tagline{margin:0;font-size:clamp(20px,2.3vw,28px);font-weight:450;letter-spacing:-.028em;
-  line-height:1.15;color:var(--ink-2);max-width:20ch}
+.tagline{margin:0;font-size:clamp(19px,2.1vw,27px);font-weight:450;letter-spacing:-.026em;
+  line-height:1.3;color:var(--ink-2);max-width:32ch;text-wrap:balance}
 .lede{margin:0;font-size:clamp(16px,1.5vw,18px);color:var(--ink-3);max-width:46ch;line-height:1.6;font-weight:400}
 .lede b{color:var(--ink-2);font-weight:600}
 .lede b{color:var(--ink);font-weight:600}

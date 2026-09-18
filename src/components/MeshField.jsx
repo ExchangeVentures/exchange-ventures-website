@@ -3,10 +3,11 @@ import { reducedMotion } from "./Primitives.jsx";
 
 /**
  * Ambient wave field behind the page. Monochrome, drawn from theme tokens,
- * and fixed so it never repaints on scroll.
+ * fixed so it never repaints on scroll.
  *
- * Taken from the AURA case study's flowing mesh, with the colour dropped:
- * the brand carries no hue, so depth comes from line density and opacity.
+ * The field reacts to the pointer: lines lift toward the cursor and brighten
+ * within its radius, so the surface behaves like something under tension
+ * rather than a looping texture.
  */
 export default function MeshField() {
   const ref = useRef(null);
@@ -19,8 +20,12 @@ export default function MeshField() {
     const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
     let raf = 0, W = 0, H = 0, stroke = "#888";
 
+    // Pointer lives in refs, never in state: state would re-render every move.
+    const pointer = { x: -9999, y: -9999, tx: -9999, ty: -9999, strength: 0, target: 0 };
+
     const readToken = () => {
-      stroke = getComputedStyle(document.documentElement).getPropertyValue("--ink-4").trim() || "#888";
+      stroke = getComputedStyle(document.documentElement)
+        .getPropertyValue("--mesh").trim() || "#8C8C8C";
     };
     readToken();
 
@@ -32,32 +37,53 @@ export default function MeshField() {
     }
     size();
 
-    const ROWS = 34, COLS = 58;
+    const ROWS = 40, COLS = 66;
+    const REACH = 300;          // pointer influence radius, px
+    const LIFT = 46;            // how far the surface pulls toward the cursor
 
     function draw(t) {
       ctx.clearRect(0, 0, W, H);
-      ctx.strokeStyle = stroke;
       ctx.lineWidth = 1;
 
-      // The field sits in the lower right, so it never fights the headline.
-      const originX = W * 0.52, originY = H * 0.58;
-      const spanX = W * 0.78, spanY = H * 0.74;
+      // Ease the pointer so the surface trails the cursor instead of snapping.
+      pointer.x += (pointer.tx - pointer.x) * 0.12;
+      pointer.y += (pointer.ty - pointer.y) * 0.12;
+      pointer.strength += (pointer.target - pointer.strength) * 0.06;
+
+      // Spans the viewport now, weighted low so the headline still leads.
+      const originX = W * 0.5, originY = H * 0.62;
+      const spanX = W * 1.25, spanY = H * 1.15;
 
       for (let r = 0; r < ROWS; r++) {
         const v = r / (ROWS - 1);
+        let nearest = Infinity;
         ctx.beginPath();
         for (let c = 0; c < COLS; c++) {
           const u = c / (COLS - 1);
           const wave =
-            Math.sin(u * 5.2 + t * 0.00022 + v * 2.6) * 26 +
-            Math.sin(u * 2.1 - t * 0.00015 + v * 4.4) * 16 +
-            Math.cos(v * 3.3 + t * 0.00011) * 10;
-          const x = originX - spanX / 2 + u * spanX;
-          const y = originY - spanY / 2 + v * spanY + wave * (0.35 + v * 0.9);
+            Math.sin(u * 5.2 + t * 0.00024 + v * 2.6) * 34 +
+            Math.sin(u * 2.1 - t * 0.00016 + v * 4.4) * 22 +
+            Math.cos(v * 3.3 + t * 0.00012) * 13;
+
+          let x = originX - spanX / 2 + u * spanX;
+          let y = originY - spanY / 2 + v * spanY + wave * (0.4 + v * 0.95);
+
+          // Pointer pull: a smooth falloff, strongest at the cursor.
+          const dx = x - pointer.x, dy = y - pointer.y;
+          const d = Math.hypot(dx, dy);
+          if (d < REACH) {
+            const f = (1 - d / REACH) ** 2 * pointer.strength;
+            y -= f * LIFT;
+            x += (dx / (d || 1)) * f * 12;
+            if (d < nearest) nearest = d;
+          }
           if (c === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         }
-        // Denser toward the bottom, so it reads as a surface rather than a grid.
-        ctx.globalAlpha = 0.05 + v * 0.16;
+        // Denser toward the bottom, and brighter wherever the cursor is close.
+        const base = 0.10 + v * 0.30;
+        const glow = nearest < REACH ? (1 - nearest / REACH) * 0.42 * pointer.strength : 0;
+        ctx.strokeStyle = stroke;
+        ctx.globalAlpha = Math.min(0.85, base + glow);
         ctx.stroke();
       }
       ctx.globalAlpha = 1;
@@ -70,7 +96,18 @@ export default function MeshField() {
       raf = requestAnimationFrame(frame);
     }
 
+    const onMove = (e) => {
+      pointer.tx = e.clientX; pointer.ty = e.clientY; pointer.target = 1;
+      if (pointer.x < -9000) { pointer.x = e.clientX; pointer.y = e.clientY; }
+    };
+    const onLeave = () => { pointer.target = 0; };
     const onResize = () => { size(); if (reduce) draw(0); };
+
+    if (!reduce) {
+      window.addEventListener("pointermove", onMove, { passive: true });
+      window.addEventListener("pointerleave", onLeave);
+      window.addEventListener("blur", onLeave);
+    }
     window.addEventListener("resize", onResize);
     const mo = new MutationObserver(() => { readToken(); if (reduce) draw(0); });
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
@@ -81,6 +118,9 @@ export default function MeshField() {
     if (reduce) draw(0); else raf = requestAnimationFrame(frame);
     return () => {
       cancelAnimationFrame(raf);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("blur", onLeave);
       window.removeEventListener("resize", onResize);
       mo.disconnect();
       mq.removeEventListener?.("change", onTheme);

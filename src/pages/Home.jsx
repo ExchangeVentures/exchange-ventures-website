@@ -36,11 +36,7 @@ export default function Home() {
       <section className="hero">
         <div className="herotxt">
           <h1>Exchange Ventures</h1>
-          <p className="tagline">The intelligence layer for oil and gas.</p>
-          <p className="lede">
-            The industry's data was never designed to be joined up. We build the software
-            that makes it usable. Datum is <b>where we started</b>, not where we stop.
-          </p>
+          <p className="tagline">An intelligence company for energy operations, and the data they have never been able to trust.</p>
           <div className="cta">
             <Btn href={MAIL}>Get in touch</Btn>
             <Btn href="#/platform" variant="ghost" icon="→">See the platform</Btn>
