@@ -80,10 +80,10 @@ export default function MeshField() {
           if (c === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         }
         // Denser toward the bottom, and brighter wherever the cursor is close.
-        const base = 0.10 + v * 0.30;
-        const glow = nearest < REACH ? (1 - nearest / REACH) * 0.42 * pointer.strength : 0;
+        const base = 0.08 + v * 0.24;                 // 20% below the previous 0.10 to 0.40
+        const glow = nearest < REACH ? (1 - nearest / REACH) * 0.336 * pointer.strength : 0;
         ctx.strokeStyle = stroke;
-        ctx.globalAlpha = Math.min(0.85, base + glow);
+        ctx.globalAlpha = Math.min(0.68, base + glow);
         ctx.stroke();
       }
       ctx.globalAlpha = 1;

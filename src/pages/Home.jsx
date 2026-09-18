@@ -1,5 +1,5 @@
 import { Shell, Btn, Reveal } from "../components/Primitives.jsx";
-import HeroCanvas from "../components/HeroCanvas.jsx";
+import ResolveTerminal from "../components/ResolveTerminal.jsx";
 import FocusList from "../components/FocusList.jsx";
 
 const MAIL = "mailto:info@exchangeventures.ca?subject=Exchange%20Ventures";
@@ -41,8 +41,8 @@ export default function Home() {
             <Btn href={MAIL}>Get in touch</Btn>
             <Btn href="#/platform" variant="ghost" icon="→">See the platform</Btn>
           </div>
+          <ResolveTerminal />
         </div>
-        <HeroCanvas />
       </section>
 
       <section className="sec">
