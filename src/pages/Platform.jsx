@@ -44,6 +44,8 @@ export default function Platform() {
 
       <section className="sec" style={{ paddingTop: "clamp(30px,4vw,56px)" }}>
         <Reveal>
+          <div className="railed">
+            <span className="raillabel">Demo</span>
           <div className="sechead">
             <h2>Try it.</h2>
             <p className="sub">
@@ -51,12 +53,13 @@ export default function Platform() {
               Put 18 in the LSD, or set the range to 41.
             </p>
           </div>
+          </div>
         </Reveal>
         <Reveal delay={80} style={{ marginTop: 40 }}><Resolver /></Reveal>
       </section>
 
       <section className="sec">
-        <Reveal><div className="sechead"><h2>What it covers.</h2></div></Reveal>
+        <Reveal><div className="railed"><span className="raillabel">Capability</span><div className="sechead"><h2>What it covers.</h2></div></div></Reveal>
         <div className="caps">
           {CAPABILITIES.map(([n, title, body], i) => (
             <Reveal key={n} delay={(i % 3) * 90} className="cap">
@@ -81,11 +84,14 @@ export default function Platform() {
 
       <section className="sec">
         <Reveal>
+          <div className="railed">
+            <span className="raillabel">Evidence</span>
           <div className="sechead">
             <h2>What the current way costs.</h2>
             <p className="sub">
               Published benchmarks for what production teams spend reconciling volumes that do not tie out.
             </p>
+          </div>
           </div>
         </Reveal>
         <div className="research">

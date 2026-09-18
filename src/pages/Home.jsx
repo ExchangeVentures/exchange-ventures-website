@@ -1,5 +1,6 @@
 import { Shell, Btn, Reveal } from "../components/Primitives.jsx";
 import HeroCanvas from "../components/HeroCanvas.jsx";
+import FocusList from "../components/FocusList.jsx";
 
 const MAIL = "mailto:info@exchangeventures.ca?subject=Exchange%20Ventures";
 
@@ -49,7 +50,12 @@ export default function Home() {
       </section>
 
       <section className="sec">
-        <Reveal><div className="sechead"><h2>The industry runs on data it cannot trust.</h2></div></Reveal>
+        <Reveal>
+          <div className="railed">
+            <span className="raillabel">The problem</span>
+            <div className="sechead"><h2>The industry runs on data it cannot trust.</h2></div>
+          </div>
+        </Reveal>
         <div className="probs">
           {PROBLEMS.map(([n, title, body, source], i) => (
             <Reveal key={n} delay={i * 110} className="prob">
@@ -65,37 +71,40 @@ export default function Home() {
 
       <section className="sec">
         <Reveal>
-          <div className="sechead">
-            <h2>So we are building the intelligence suite.</h2>
-            <p className="sub">
-              Three phases, in the only order that works. Nothing above the first one holds up
-              until the identifiers underneath it are right.
-            </p>
+          <div className="railed">
+            <span className="raillabel">The suite</span>
+            <div className="sechead">
+              <h2>Three phases, in the only order that works.</h2>
+              <p className="sub">
+                Nothing above the first one holds up until the identifiers underneath it are right.
+              </p>
+            </div>
           </div>
         </Reveal>
 
         <div className="suite">
-          {SUITE.map(([phase, name, state, body, href], i) => (
-            <Reveal key={name} delay={i * 90}>
+          <FocusList
+            items={SUITE}
+            renderItem={([phase, name, state, body, href]) => (
               <article className="suitecard">
-                <div className="ph">
-                  <b>{phase}</b>
-                  <span className={`state${state === "live" ? " live" : ""}`}>
-                    {state === "live" ? "Building now" : state === "next" ? "Next" : "Later"}
-                  </span>
-                </div>
                 <div className="body">
+                  <div className="ph">
+                    <b>{phase}</b>
+                    <span className={`state${state === "live" ? " live" : ""}`}>
+                      {state === "live" ? "Building now" : state === "next" ? "Next" : "Later"}
+                    </span>
+                  </div>
                   <h3>{name}</h3>
                   <p>{body}</p>
                   {href && (
-                    <div className="cta" style={{ marginTop: 4 }}>
+                    <div className="cta" style={{ marginTop: 8 }}>
                       <Btn href={href} size="sm" icon="→">See Datum</Btn>
                     </div>
                   )}
                 </div>
               </article>
-            </Reveal>
-          ))}
+            )}
+          />
         </div>
         <Reveal delay={90} style={{ marginTop: 44 }}>
           <Shell>

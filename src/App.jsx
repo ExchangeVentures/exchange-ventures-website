@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Nav from "./components/Nav.jsx";
+import MeshField from "./components/MeshField.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import Platform from "./pages/Platform.jsx";
@@ -42,6 +43,7 @@ export default function App() {
   return (
     <>
       <div className="aura" aria-hidden="true" />
+      <MeshField />
       <div className="grain" aria-hidden="true" />
       <Nav route={route} isDark={isDark} onToggleTheme={() => setTheme(isDark ? "light" : "dark")} />
       <div className="wrap">
