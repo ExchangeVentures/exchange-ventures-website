@@ -52,8 +52,29 @@ npm i @anthropic-ai/sdk        # only needed for the Claude path
 - [ ] Confirm the email and location in `src/lib/site.js`
 - [ ] Confirm the fee numbers in `engagements`
 - [ ] Wire the contact form: set `VITE_LEAD_ENDPOINT` or keep the `mailto:` fallback
+- [ ] Tick **Enforce HTTPS** in the repo's Pages settings once the certificate issues
+- [ ] Add DKIM and DMARC records at Namecheap (see `docs/EMAIL-SETUP.md` steps 6 and 7)
 - [ ] Add real client quotes if you want a proof section (none are on the site now,
       deliberately: there are no invented testimonials or outcome numbers anywhere)
+
+## Brand assets
+
+Everything in `public/` ships as-is to the site root. Regenerate the raster files
+with `python3 scripts/gen_assets.py` after changing the mark or the headline.
+
+| File | What it is |
+|---|---|
+| `favicon.svg` | The mark: a solid square and an outlined one on the diagonal |
+| `favicon.ico` | 16, 32 and 48px, each drawn natively so small sizes stay crisp |
+| `apple-touch-icon.png` | 180px, for iOS home screens |
+| `icon-512.png` | 512px, referenced by `site.webmanifest` |
+| `og.png` | 1200x630 link preview, black with the hero line |
+| `404.html` | Standalone page GitHub Pages serves for unknown paths |
+| `robots.txt`, `sitemap.xml` | Both point at `https://xchngventure.com` |
+
+The mark is the nav's square, doubled: one solid, one outlined. Same idea as the
+Capital diagram, one shape becoming another. `index.html` carries the Open Graph
+and Twitter tags plus a `ProfessionalService` JSON-LD block.
 
 ## Notes on the content
 
