@@ -84,7 +84,7 @@ icon(48).save(f"{OUT}/favicon.ico",
               sizes=[(16, 16), (32, 32), (48, 48)],
               append_images=[icon(16), icon(32)])
 
-# ---- og.png ----------------------------------------------------------------
+# ---- og-v2.png ----------------------------------------------------------------
 W, H, M = 1200, 630, 80
 im = Image.new("RGB", (W, H), BLACK)
 d = ImageDraw.Draw(im)
@@ -98,21 +98,25 @@ for gy in range(0, H, 90):
 d.rectangle([M, 78, M + 14, 92], fill=WHITE)
 d.text((M + 27, 68), "Exchange Ventures", font=hn(31, MEDIUM), fill=WHITE)
 
-# Headline, the hero line broken across two lines.
+# Headline: the company name, as the site now leads with it.
 f_head = hn(78, BOLD)
-d.text((M, 232), "Strategy and capital", font=f_head, fill=WHITE)
-d.text((M, 326), "for small businesses.", font=f_head, fill=WHITE)
+d.text((M, 214), "Exchange", font=f_head, fill=WHITE)
+d.text((M, 308), "Ventures", font=f_head, fill=WHITE)
+
+# The positioning line, under the name.
+f_sub = hn(30, MEDIUM)
+d.text((M, 418), "An intelligence company for energy operations.", font=f_sub, fill=GREY40)
 
 # Footer rule and the mono strip.
 d.line([(M, 502), (W - M, 502)], fill=LINE, width=1)
 f_mono = mono(19)
 TR = 2.6
-end = tracked(d, (M, 542), "ADVISORY", f_mono, GREY40, TR)
+end = tracked(d, (M, 542), "DATUM", f_mono, GREY40, TR)
 # A divider, or the two words read as one phrase.
 d.line([(end + 26, 545), (end + 26, 561)], fill=LINE, width=1)
-tracked(d, (end + 52, 542), "CAPITAL", f_mono, GREY40, TR)
-dom = "XCHNGVENTURE.COM"
+tracked(d, (end + 52, 542), "PHASE ONE", f_mono, GREY40, TR)
+dom = "EXCHANGEVENTURES.CA"
 tracked(d, (W - M - tracked_width(d, dom, f_mono, TR), 542), dom, f_mono, WHITE, TR)
 
-im.save(f"{OUT}/og.png", optimize=True)
-print("wrote favicon.ico, apple-touch-icon.png, icon-512.png, og.png")
+im.save(f"{OUT}/og-v2.png", optimize=True)
+print("wrote favicon.ico, apple-touch-icon.png, icon-512.png, og-v2.png")

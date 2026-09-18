@@ -7,7 +7,7 @@ export default function Nav({ route, isDark, onToggleTheme }) {
           <b>Exchange Ventures</b>
         </a>
         <div className="tabs">
-          <a className={`tab${route === "home" ? " on" : ""}`} href="#/">Company</a>
+          <a className={`tab${route === "home" ? " on" : ""}`} href="#/">Home</a>
           <a className={`tab${route === "platform" ? " on" : ""}`} href="#/platform">Platform</a>
         </div>
         <button className="tgl" data-on={isDark ? "dark" : "light"} type="button"

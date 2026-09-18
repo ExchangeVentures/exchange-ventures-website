@@ -1,5 +1,8 @@
+import { lazy, Suspense } from "react";
 import { Shell, Btn, Reveal } from "../components/Primitives.jsx";
 import Resolver from "../components/Resolver.jsx";
+// Leaflet is ~150kB. Only the platform page needs it, so it loads on demand.
+const FacilityMap = lazy(() => import("../components/FacilityMap.jsx"));
 
 const MAIL = "mailto:info@exchangeventures.ca?subject=Datum%20access";
 
@@ -56,6 +59,26 @@ export default function Platform() {
           </div>
         </Reveal>
         <Reveal delay={80} style={{ marginTop: 40 }}><Resolver /></Reveal>
+      </section>
+
+      <section className="sec">
+        <Reveal>
+          <div className="railed">
+            <span className="raillabel">Where</span>
+            <div className="sechead">
+              <h2>Plotted from the survey, not from a pin.</h2>
+              <p className="sub">
+                Positions come from each facility's legal DLS location. A facility that
+                the register does not recognise cannot appear here at all.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+        <Reveal delay={80} style={{ marginTop: 40 }}>
+          <Suspense fallback={<div className="mapload">Loading the map…</div>}>
+            <FacilityMap />
+          </Suspense>
+        </Reveal>
       </section>
 
       <section className="sec">

@@ -53,3 +53,23 @@ export function rejectionReason(q) {
   }
   return `No register match for "${q.trim()}". Free text is not a facility. Search by code, legal name or operator.`;
 }
+
+/** Meridian longitudes, degrees west, for the Dominion Land Survey. */
+export const MERIDIAN_LON = { W1: 97.46, W2: 102.0, W3: 106.0, W4: 110.0, W5: 114.0, W6: 118.0 };
+
+/**
+ * Approximate lat/lon from a DLS location such as "08-24-055-21W4".
+ * A township is six miles north to south; range width is six miles converted
+ * at that latitude. Accurate to roughly a tenth of a degree, which is well
+ * inside what a facility marker needs.
+ */
+export function dlsToLatLon(location) {
+  const m = /^(\d{1,2})-(\d{1,2})-(\d{1,3})-(\d{1,2})(W\d)$/.exec((location || "").trim());
+  if (!m) return null;
+  const twp = +m[3], rge = +m[4], mer = m[5];
+  const base = MERIDIAN_LON[mer];
+  if (base == null) return null;
+  const lat = 49 + (twp - 0.5) * 0.0869;
+  const degPerRange = 9.656 / (111.32 * Math.cos((lat * Math.PI) / 180));
+  return { lat, lon: -(base + (rge - 0.5) * degPerRange), twp, rge, mer };
+}

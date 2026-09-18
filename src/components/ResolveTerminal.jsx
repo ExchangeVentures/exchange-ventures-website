@@ -51,14 +51,16 @@ export default function ResolveTerminal() {
           <span>{typed}</span>
           {!reduce && phase === "typing" && <span className="caret" />}
         </div>
-        {phase === "result" && current.bad && (
-          <div className="tout bad">REJECTED&nbsp;&nbsp;{current.bad}</div>
-        )}
-        {phase === "result" && current.good && (
-          <div className="tout good">
-            <b>{current.good[0]}</b><br />{current.good[1]}
-          </div>
-        )}
+        <div className="toutslot">
+          {phase === "result" && current.bad && (
+            <div className="tout bad">REJECTED&nbsp;&nbsp;{current.bad}</div>
+          )}
+          {phase === "result" && current.good && (
+            <div className="tout good">
+              <b>{current.good[0]}</b><br />{current.good[1]}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
